@@ -1,0 +1,21 @@
+1.yum install virt-manager virsh,etc
+2.download a new Centos7.iso from internet and mount and copy all files to a new folder ,don't left .treeinfo .discinof behind.
+3.copy the anaconda-ks.cfg from /root/anaconda-ks.cfg
+4.vi anaconda-ks.cfg
+
+label ks
+
+  menu label Install CentOS 7 by the ^kickstart
+
+  menu default
+
+  kernel vmlinuz
+
+  append initrd=initrd.img inst.ks=cdrom:/ks.cfg inst.stage2=hd:LABEL=centos7
+  
+  5.use the cmomand
+  genisoimage -v -cache-inodes -joliet-long -R -J -T -V centos7 -o /var/lib/libvirt/images/mycentos7.iso -c isolinux/boot.cat -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -b images/efiboot.img -no-emul-boot ./
+  
+  
+  6.create kvm centos7.xml and fix.
+  7.virsh create centos7.xml
